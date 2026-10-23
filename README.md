@@ -55,7 +55,13 @@ Install monorepo root, backend, and frontend dependencies in one command:
 npm run install:all
 ```
 
-### 4. Run Concurrently in Development Mode
+### 4. Seed Mock Data (Optional for Quick Testing)
+Populate MongoDB with 3 verified students, 10 categorized items, active transactions, and messages:
+```bash
+npm run seed
+```
+
+### 5. Run Concurrently in Development Mode
 Start both the Express API and Vite React frontend concurrently:
 ```bash
 npm run dev
@@ -95,6 +101,7 @@ npm run dev
 | Command | Description |
 |---|---|
 | `npm run dev` | Run frontend & backend concurrently with live reload |
+| `npm run seed` | Wipe and seed database with 3 verified student users & 10 items |
 | `npm run build` | Compile backend TypeScript (`tsc`) and bundle frontend (`vite build`) |
 | `npm run build:backend` | Compile backend TypeScript to `dist/` |
 | `npm run build:frontend` | Build frontend production bundle to `campuslend-front/dist/` |
@@ -105,3 +112,4 @@ npm run dev
 
 ## 📄 License
 ISC License. Built for the Heinrich Heine University & Campus community.
+
