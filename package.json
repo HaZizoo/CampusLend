@@ -10,6 +10,7 @@
     "build": "npm run build --prefix campuslend-backend && npm run build --prefix campuslend-front",
     "build:backend": "npm run build --prefix campuslend-backend",
     "build:frontend": "npm run build --prefix campuslend-front",
+    "seed": "npm run seed --prefix campuslend-backend",
     "start": "npm run start --prefix campuslend-backend",
     "install:all": "npm install && npm install --prefix campuslend-backend && npm install --prefix campuslend-front"
   },
@@ -17,3 +18,4 @@
     "concurrently": "^9.1.2"
   }
 }
+

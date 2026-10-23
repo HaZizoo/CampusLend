@@ -37,7 +37,6 @@ const transactionSchema = new Schema<ITransactionDocument>(
       type: Schema.Types.ObjectId,
       ref: 'Item',
       required: [true, 'Item reference is required'],
-      index: true,
     },
     borrower: {
       type: Schema.Types.ObjectId,
