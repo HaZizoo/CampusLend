@@ -1,0 +1,19 @@
+{
+  "name": "campuslend",
+  "version": "1.0.0",
+  "description": "CampusLend - Peer-to-peer campus item lending network (Full-stack Monorepo)",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -k -p \"[{name}]\" -n \"BACKEND,FRONTEND\" -c \"cyan.bold,magenta.bold\" \"npm run dev --prefix campuslend-backend\" \"npm run dev --prefix campuslend-front\"",
+    "dev:backend": "npm run dev --prefix campuslend-backend",
+    "dev:frontend": "npm run dev --prefix campuslend-front",
+    "build": "npm run build --prefix campuslend-backend && npm run build --prefix campuslend-front",
+    "build:backend": "npm run build --prefix campuslend-backend",
+    "build:frontend": "npm run build --prefix campuslend-front",
+    "start": "npm run start --prefix campuslend-backend",
+    "install:all": "npm install && npm install --prefix campuslend-backend && npm install --prefix campuslend-front"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
