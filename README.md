@@ -12,6 +12,35 @@
 
 ---
 
+## Visual Preview
+
+CampusLend covers discovery, borrower activity, community information, and creating a new listing.
+
+![CampusLend home](docs/screenshots/home.png)
+
+![Borrower dashboard](docs/screenshots/borrower-dashboard.png)
+
+![About CampusLend](docs/screenshots/about.png)
+
+![List an item](docs/screenshots/list-item.png)
+
+![CampusLend footer](docs/screenshots/footer.png)
+
+## System Architecture
+
+```mermaid
+flowchart LR
+  S[Student browser] --> R[React client]
+  R --> E[Express API]
+  E --> M[(MongoDB)]
+  E --> A[JWT authentication]
+  E --> T[Atomic transactions]
+```
+
+See the [architecture map](docs/architecture.html). Atomic reservations and database constraints keep an item from being loaned to more than one student at a time.
+
+---
+
 ## 🏛️ Monorepo Architecture
 
 ```
