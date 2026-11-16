@@ -1,7 +1,8 @@
 import { Router, Request, Response } from 'express';
 import Item, { ITEM_CATEGORIES, ItemCategory } from '../models/Item';
 import { authenticate, optionalAuth, AuthenticatedRequest } from '../middleware/auth';
-import { validate } from '../middleware/validate';
+import { validateZod } from '../middleware/validate';
+import { itemCreateSchema, itemUpdateSchema } from '../schemas/item';
 
 const router = Router();
 
@@ -96,13 +97,7 @@ router.get('/:id', async (req: Request, res: Response): Promise<void> => {
 router.post(
   '/',
   optionalAuth,
-  validate([
-    { field: 'title', required: true, type: 'string', minLength: 2, maxLength: 200 },
-    { field: 'description', required: true, type: 'string', maxLength: 2000 },
-    { field: 'category', required: true, type: 'string', enum: ITEM_CATEGORIES },
-    { field: 'ownerEmail', required: true, type: 'email' },
-    { field: 'maxBorrowTime', required: true, type: 'string', maxLength: 100 },
-  ]),
+  validateZod(itemCreateSchema),
   async (req: Request, res: Response): Promise<void> => {
     try {
       const { title, description, category, ownerEmail, maxBorrowTime, status } = req.body;
@@ -131,7 +126,7 @@ router.post(
  * PUT /api/items/:id
  * Update an existing item (requires authentication)
  * ───────────────────────────────────────────── */
-router.put('/:id', authenticate, async (req: Request, res: Response): Promise<void> => {
+router.put('/:id', authenticate, validateZod(itemUpdateSchema), async (req: Request, res: Response): Promise<void> => {
   try {
     const authReq = req as AuthenticatedRequest;
     const existing = await Item.findById(req.params.id);
@@ -150,10 +145,6 @@ router.put('/:id', authenticate, async (req: Request, res: Response): Promise<vo
     const allowedFields = ['title', 'description', 'category', 'maxBorrowTime', 'status'] as const;
     for (const field of allowedFields) {
       if (req.body[field] !== undefined) {
-        if (field === 'category' && !ITEM_CATEGORIES.includes(req.body[field])) {
-          res.status(400).json({ error: `Invalid category: ${req.body[field]}` });
-          return;
-        }
         existing.set(field, req.body[field]);
       }
     }
